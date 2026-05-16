@@ -1,5 +1,6 @@
 package com.project.medical_record_system.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -23,6 +24,7 @@ public class Diagnosis extends BaseEntity {
 
     private String description;
 
+    //@JsonManagedReference
     @OneToMany(mappedBy = "diagnosis")
     private Set<Visit> visits = new HashSet<>();
 }

@@ -1,5 +1,7 @@
 package com.project.medical_record_system.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -16,7 +18,7 @@ import java.util.Set;
 public class Patient {
 
     @Id
-    private int userId;
+    private long userId;
 
     @OneToOne
     @MapsId
@@ -34,6 +36,8 @@ public class Patient {
     @JoinColumn(name = "general_practitioner_id")
     private Doctor generalPractitioner;
 
+    //@JsonManagedReference
     @OneToMany(mappedBy = "patient")
+    @JsonIgnore
     private Set<Visit> visits = new HashSet<>();
 }

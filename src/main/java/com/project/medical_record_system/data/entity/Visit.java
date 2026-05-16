@@ -1,5 +1,8 @@
 package com.project.medical_record_system.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,18 +30,25 @@ public class Visit extends BaseEntity {
 
     private String notes;
 
+    //@JsonBackReference
     @ManyToOne(optional = false)
     private Patient patient;
 
+    //@JsonBackReference
     @ManyToOne(optional = false)
     private Doctor doctor;
 
+    //@JsonBackReference
     @ManyToOne(optional = false)
     private Diagnosis diagnosis;
 
+    //@JsonManagedReference
     @OneToOne(mappedBy = "visit")
+    @JsonIgnore
     private Treatment treatment;
 
+    //@JsonManagedReference
     @OneToOne(mappedBy = "visit")
+    @JsonIgnore
     private SickLeave  sickleave;
 }

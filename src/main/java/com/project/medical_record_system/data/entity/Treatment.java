@@ -1,5 +1,6 @@
 package com.project.medical_record_system.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -25,6 +26,7 @@ public class Treatment extends BaseEntity {
 
     private LocalDate endDate;
 
+    //@JsonBackReference
     @OneToOne(optional = false)
     @JoinColumn(name = "visit_id", unique = true)
     private Visit visit;

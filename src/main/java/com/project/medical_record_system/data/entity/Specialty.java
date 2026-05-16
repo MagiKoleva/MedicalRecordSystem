@@ -1,8 +1,11 @@
 package com.project.medical_record_system.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -19,6 +22,8 @@ public class Specialty extends BaseEntity {
 
     private String description;
 
+    //@JsonBackReference
     @ManyToMany(mappedBy = "specialties")
-    private Set<Doctor> doctors;
+    @JsonIgnore
+    private Set<Doctor> doctors =  new HashSet<>();
 }
