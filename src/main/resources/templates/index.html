@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Medical Record System</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Medical Record System</h1>
+        <p>Patient medical history, doctors, visits, treatments and sick leaves.</p>
+        <a class="btn" th:href="@{/web/reports}">View statistics</a>
+    </div>
+</div>
+
+</body>
+</html>

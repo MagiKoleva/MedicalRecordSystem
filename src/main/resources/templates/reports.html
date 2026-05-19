@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Reports</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+</div>
+
+<div class="container">
+    <h1>Statistics</h1>
+
+    <div class="card">
+        <h2>Most common diagnosis</h2>
+        <p th:if="${mostCommonDiagnosis != null}">
+            <strong th:text="${mostCommonDiagnosis.diagnosisName}"></strong>
+            —
+            <span th:text="${mostCommonDiagnosis.count}"></span>
+            visits
+        </p>
+        <p th:if="${mostCommonDiagnosis == null}">No data available.</p>
+    </div>
+
+    <div class="card">
+        <h2>Total paid by patients</h2>
+        <p>
+            <strong th:text="${totalPaidByPatients}"></strong>
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Patient-paid visits by doctor</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${paidByDoctor}">
+                <td th:text="${item.doctorName}"></td>
+                <td th:text="${item.total}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Visits count by doctor</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Visits</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${visitsByDoctor}">
+                <td th:text="${item.doctorName}"></td>
+                <td th:text="${item.count}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Month with most sick leaves</h2>
+        <p th:if="${monthWithMostSickLeaves != null}">
+            Month:
+            <strong th:text="${monthWithMostSickLeaves.month}"></strong>,
+            sick leaves:
+            <strong th:text="${monthWithMostSickLeaves.count}"></strong>
+        </p>
+        <p th:if="${monthWithMostSickLeaves == null}">No data available.</p>
+    </div>
+
+    <div class="card">
+        <h2>Doctor with most sick leaves</h2>
+        <p th:if="${doctorWithMostSickLeaves != null}">
+            <strong th:text="${doctorWithMostSickLeaves.doctorName}"></strong>
+            —
+            <span th:text="${doctorWithMostSickLeaves.count}"></span>
+            sick leaves
+        </p>
+        <p th:if="${doctorWithMostSickLeaves == null}">No data available.</p>
+    </div>
+</div>
+
+</body>
+</html>

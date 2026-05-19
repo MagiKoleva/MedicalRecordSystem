@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Patients</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Patients</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>EGN</th>
+                <th>Health Insurance</th>
+                <th>General Practitioner</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="patient : ${patients}">
+                <td th:text="${patient.userId}"></td>
+                <td th:text="${patient.name}"></td>
+                <td th:text="${patient.egn}"></td>
+                <td th:text="${patient.healthInsurancePaid}"></td>
+                <td th:text="${patient.generalPractitioner.name}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

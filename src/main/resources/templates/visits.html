@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Visits</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/}">Home</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Visits</h1>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Patient</th>
+                <th>Doctor</th>
+                <th>Diagnosis</th>
+                <th>Price</th>
+                <th>Paid by</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="visit : ${visits}">
+                <td th:text="${visit.date}"></td>
+                <td th:text="${visit.patient.name}"></td>
+                <td th:text="${visit.doctor.name}"></td>
+                <td th:text="${visit.diagnosis.name}"></td>
+                <td th:text="${visit.price}"></td>
+                <td th:text="${visit.paidBy}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
