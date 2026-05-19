@@ -78,4 +78,14 @@ public class VisitServiceImpl implements VisitService {
         }
         visitRepository.deleteById(id);
     }
+
+    @Override
+    public List<Visit> getVisitsByDoctorId(long id) {
+        return visitRepository.findByDoctorUserId(id);
+    }
+
+    @Override
+    public List<Visit> getVisitsByPatientId(Long id) {
+        return visitRepository.findByPatientUserId(id);
+    }
 }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/web/admin/dashboard}">Dashboard</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button class="nav-logout" type="submit">Logout</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Admin Dashboard</h1>
+        <p>You have full access to the system.</p>
+    </div>
+</div>
+
+</body>
+</html>

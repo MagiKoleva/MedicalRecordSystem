@@ -29,6 +29,7 @@
                 <th>Name</th>
                 <th>General Practitioner</th>
                 <th>Specialties</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -37,9 +38,23 @@
                 <td th:text="${doctor.doctorIdentifier}"></td>
                 <td th:text="${doctor.name}"></td>
                 <td th:text="${doctor.generalPractitioner}"></td>
+
                 <td>
-                    <span th:each="specialty : ${doctor.specialties}"
-                          th:text="${specialty.name + ' '}"></span>
+        <span th:each="specialty : ${doctor.specialties}">
+            <span th:text="${specialty.name}"></span><br>
+        </span>
+                </td>
+
+                <td>
+                    <a class="btn"
+                       th:href="@{/web/doctors/edit/{id}(id=${doctor.userId})}">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-secondary"
+                       th:href="@{/web/doctors/delete/{id}(id=${doctor.userId})}">
+                        Delete
+                    </a>
                 </td>
             </tr>
             </tbody>

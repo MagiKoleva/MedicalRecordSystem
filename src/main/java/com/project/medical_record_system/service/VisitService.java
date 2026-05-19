@@ -11,4 +11,7 @@ public interface VisitService {
     Visit createVisit (Visit visit);
     Visit updateVisit (Visit visit, long id);
     void deleteVisit (long id);
+
+    List<Visit> getVisitsByDoctorId(long id);
+    List<Visit> getVisitsByPatientId(Long id);
 }

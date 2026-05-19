@@ -2,6 +2,7 @@ package com.project.medical_record_system.controller.api;
 
 import com.project.medical_record_system.data.entity.Doctor;
 import com.project.medical_record_system.service.DoctorService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +28,13 @@ public class DoctorApiController {
     }
 
     @PostMapping
-    public ResponseEntity<Doctor> createDoctor (@RequestBody Doctor doctor) {
+    public ResponseEntity<Doctor> createDoctor (@Valid @RequestBody Doctor doctor) {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(doctorService.createDoctor(doctor));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Doctor> updateDoctor (@RequestBody Doctor doctor, @PathVariable long id) {
+    public ResponseEntity<Doctor> updateDoctor (@Valid @RequestBody Doctor doctor, @PathVariable long id) {
         return ResponseEntity.ok(doctorService.updateDoctor(doctor, id));
     }
 

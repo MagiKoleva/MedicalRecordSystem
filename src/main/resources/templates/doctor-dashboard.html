@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Doctor Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/web/doctor/dashboard}">Dashboard</a>
+    <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/doctor/my-visits}">My visits</a>
+    <a th:href="@{/web/reports}">Reports</a>
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button class="nav-logout" type="submit">Logout</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Doctor Dashboard</h1>
+        <p>You can view patients and manage your own visits.</p>
+    </div>
+</div>
+
+</body>
+</html>

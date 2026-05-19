@@ -21,6 +21,18 @@ public class PatientServiceImpl implements PatientService {
     private final UserRepository userRepository;
     private final DoctorRepository doctorRepository;
 
+    @Override
+    public Doctor validateAndGetGeneralPractitioner(long doctorId) {
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Doctor", doctorId));
+
+        if (!doctor.isGeneralPractitioner()) {
+            throw new IllegalArgumentException("Selected doctor is not a general practitioner!");
+        }
+
+        return doctor;
+    }
+
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
@@ -38,8 +50,7 @@ public class PatientServiceImpl implements PatientService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", userId));
 
-        Doctor doctor = doctorRepository.findById(doctorId)
-                .orElseThrow(() -> new ResourceNotFoundException("Doctor", doctorId));
+        Doctor doctor = validateAndGetGeneralPractitioner(doctorId);
 
         patient.setUser(user);
         patient.setUserId(user.getId());
@@ -49,17 +60,21 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public Patient updatePatient(Patient patient, long id) {
+
+        long doctorId = patient.getGeneralPractitioner().getUserId();
+        Doctor generalPractitioner = validateAndGetGeneralPractitioner(doctorId);
+
         return patientRepository.findById(id)
                 .map(existing -> {
                     existing.setName(patient.getName());
                     existing.setEgn(patient.getEgn());
                     existing.setHealthInsurancePaid(patient.isHealthInsurancePaid());
-                    existing.setGeneralPractitioner(patient.getGeneralPractitioner());
+                    existing.setGeneralPractitioner(generalPractitioner);
 
                     return patientRepository.save(existing);
                 })
                 .orElseGet(() ->
-                    this.patientRepository.save(patient)
+                    createPatient(patient)
                 );
     }
 

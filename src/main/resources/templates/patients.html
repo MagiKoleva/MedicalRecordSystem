@@ -29,6 +29,7 @@
                 <th>EGN</th>
                 <th>Health Insurance</th>
                 <th>General Practitioner</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -37,7 +38,19 @@
                 <td th:text="${patient.name}"></td>
                 <td th:text="${patient.egn}"></td>
                 <td th:text="${patient.healthInsurancePaid}"></td>
-                <td th:text="${patient.generalPractitioner.name}"></td>
+                <td th:text="${patient.generalPractitioner != null ? patient.generalPractitioner.name : 'No GP'}"></td>
+
+                <td>
+                    <a class="btn"
+                       th:href="@{/web/patients/edit/{id}(id=${patient.userId})}">
+                        Edit
+                    </a>
+
+                    <a class="btn btn-secondary"
+                       th:href="@{/web/patients/delete/{id}(id=${patient.userId})}">
+                        Delete
+                    </a>
+                </td>
             </tr>
             </tbody>
         </table>

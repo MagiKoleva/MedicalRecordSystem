@@ -18,6 +18,15 @@ public class TreatmentServiceImpl implements TreatmentService {
     private final TreatmentRepository treatmentRepository;
     private final VisitRepository visitRepository;
 
+    @Override
+    public void validateTreatmentDates(Treatment treatment) {
+        if (treatment.getStartDate() != null &&
+        treatment.getEndDate() != null &&
+        treatment.getEndDate().isBefore(treatment.getStartDate())) {
+            throw new IllegalArgumentException("Treatment end date cannot be before start date!");
+        }
+    }
+
     public List<Treatment> getAllTreatments() {
         return treatmentRepository.findAll();
     }
@@ -33,12 +42,17 @@ public class TreatmentServiceImpl implements TreatmentService {
         Visit visit = visitRepository.findById(visitId)
                 .orElseThrow(() -> new ResourceNotFoundException("Visit", visitId));
 
+        validateTreatmentDates(treatment);
+
         treatment.setVisit(visit);
 
         return treatmentRepository.save(treatment);
     }
 
     public Treatment updateTreatment(Treatment treatment, long id) {
+
+        validateTreatmentDates(treatment);
+
         return treatmentRepository.findById(id)
                 .map(existing -> {
                     existing.setPrescribedMedication(treatment.getPrescribedMedication());

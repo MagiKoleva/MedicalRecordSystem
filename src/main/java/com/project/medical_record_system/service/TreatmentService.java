@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface TreatmentService {
 
+    void validateTreatmentDates(Treatment treatment);
     List<Treatment> getAllTreatments();
     Treatment getTreatment (long id);
     Treatment createTreatment (Treatment treatment);

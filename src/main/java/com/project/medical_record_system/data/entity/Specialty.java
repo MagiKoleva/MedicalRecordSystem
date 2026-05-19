@@ -3,6 +3,7 @@ package com.project.medical_record_system.data.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 import java.util.HashSet;
@@ -17,6 +18,7 @@ import java.util.Set;
 @Builder
 public class Specialty extends BaseEntity {
 
+    @NotBlank(message = "Specialization name must be provided!")
     @Column(nullable = false, unique = true)
     private String name;
 

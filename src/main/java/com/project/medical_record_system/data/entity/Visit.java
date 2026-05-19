@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.math.BigDecimal;
@@ -18,9 +22,13 @@ import java.time.LocalDate;
 @Builder
 public class Visit extends BaseEntity {
 
+    @NotNull(message = "Date of the visit must be provided!")
+    @FutureOrPresent(message = "Date of visit cannot be in the past!")
     @Column(nullable = false)
     private LocalDate date;
 
+    @NotNull(message = "Price of the visit must be specified!")
+    @PositiveOrZero(message = "The price must be 0 or above!")
     @Column(nullable = false)
     private BigDecimal price;
 
@@ -28,6 +36,7 @@ public class Visit extends BaseEntity {
     @Column(nullable = false)
     private PaidBy paidBy;
 
+    @Size(max = 255)
     private String notes;
 
     //@JsonBackReference
