@@ -13,4 +13,9 @@ public class MonthSickLeaveCountDto {
 
     Integer month;
     long count;
+
+    public String getMonthName() {
+        return java.time.Month.of(this.month)
+                .getDisplayName(java.time.format.TextStyle.FULL, java.util.Locale.ENGLISH);
+    }
 }

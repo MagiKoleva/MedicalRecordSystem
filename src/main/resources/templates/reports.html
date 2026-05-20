@@ -96,7 +96,7 @@
         <h2>Month with most sick leaves</h2>
         <p th:if="${monthWithMostSickLeaves != null}">
             Month:
-            <strong th:text="${monthWithMostSickLeaves.month}"></strong>,
+            <strong th:text="${monthWithMostSickLeaves.monthName}"></strong>,
             sick leaves:
             <strong th:text="${monthWithMostSickLeaves.count}"></strong>
         </p>
