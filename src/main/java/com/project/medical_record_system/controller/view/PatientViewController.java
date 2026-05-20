@@ -1,8 +1,10 @@
 package com.project.medical_record_system.controller.view;
 
 import com.project.medical_record_system.data.entity.Patient;
+import com.project.medical_record_system.service.DiagnosisService;
 import com.project.medical_record_system.service.DoctorService;
 import com.project.medical_record_system.service.PatientService;
+import com.project.medical_record_system.service.ReportService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,10 +19,14 @@ public class PatientViewController {
 
     private final PatientService patientService;
     private final DoctorService doctorService;
+    private final ReportService reportService;
+    private final DiagnosisService diagnosisService;
 
     @GetMapping
     public String getPatients(Model model) {
         model.addAttribute("patients", patientService.getAllPatients());
+        model.addAttribute("diagnoses", diagnosisService.getAllDiagnoses());
+        model.addAttribute("doctors", doctorService.getAllDoctors());
         return "patients";
     }
 
@@ -31,20 +37,20 @@ public class PatientViewController {
         return "patient-form";
     }
 
-    @PostMapping("/create")
-    public String createPatient(
-            @Valid @ModelAttribute("patient") Patient patient,
-            BindingResult bindingResult,
-            Model model
-    ) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("doctors", doctorService.getAllDoctors());
-            return "patient-form";
-        }
-
-        patientService.createPatient(patient);
-        return "redirect:/web/patients";
-    }
+//    @PostMapping("/create")
+//    public String createPatient(
+//            @Valid @ModelAttribute("patient") Patient patient,
+//            BindingResult bindingResult,
+//            Model model
+//    ) {
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("doctors", doctorService.getAllDoctors());
+//            return "patient-form";
+//        }
+//
+//        patientService.createPatient(patient);
+//        return "redirect:/web/patients";
+//    }
 
     @GetMapping("/edit/{id}")
     public String showEditPatientForm(@PathVariable long id, Model model) {
@@ -73,5 +79,26 @@ public class PatientViewController {
     public String deletePatient(@PathVariable long id) {
         patientService.deletePatient(id);
         return "redirect:/web/patients";
+    }
+
+    @GetMapping("/by-diagnosis")
+    public String getPatientsByDiagnosis(
+            @RequestParam Long diagnosisId,
+            Model model
+    ) {
+        model.addAttribute("patients", reportService.getPatientsByDiagnosis(diagnosisId));
+        model.addAttribute("diagnoses", diagnosisService.getAllDiagnoses());
+        return "patients";
+    }
+
+    @GetMapping("/by-general-practitioner")
+    public String getPatientsByGeneralPractitioner(
+            @RequestParam Long doctorId,
+            Model model
+    ) {
+        model.addAttribute("patients", this.reportService.getPatientsByGeneralPractitioner(doctorId));
+        model.addAttribute("doctors", this.doctorService.getAllDoctors());
+        model.addAttribute("diagnoses", this.diagnosisService.getAllDiagnoses());
+        return "patients";
     }
 }

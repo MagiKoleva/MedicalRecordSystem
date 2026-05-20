@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Doctor Dashboard</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -9,12 +10,16 @@
 
 <div class="navbar">
     <a th:href="@{/web/doctor/dashboard}">Dashboard</a>
+    <a th:href="@{/web/doctors}">Doctors</a>
     <a th:href="@{/web/patients}">Patients</a>
     <a th:href="@{/web/visits}">Visits</a>
-    <a th:href="@{/web/doctor/my-visits}">My visits</a>
+    <a sec:authorize="hasAuthority('DOCTOR')"
+       th:href="@{/web/doctor/my-visits}">My visits</a>
     <a th:href="@{/web/reports}">Reports</a>
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <button class="nav-logout" type="submit">Logout</button>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button class="logout-btn" type="submit">Log out</button>
     </form>
 </div>
 

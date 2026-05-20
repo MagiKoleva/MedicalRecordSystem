@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Patients</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -11,15 +12,45 @@
 
 <div class="navbar">
     <a th:href="@{/}">Home</a>
-    <a th:href="@{/web/doctors}">Doctors</a>
-    <a th:href="@{/web/patients}">Patients</a>
-    <a th:href="@{/web/visits}">Visits</a>
-    <a th:href="@{/web/reports}">Reports</a>
+    <a sec:authorize="hasAnyAuthority('ADMIN', 'DOCTOR', 'PATIENT')"
+       th:href="@{/web/doctors}">Doctors</a>
+    <a sec:authorize="hasAnyAuthority('ADMIN', 'DOCTOR')"
+       th:href="@{/web/patients}">Patients</a>
+    <a sec:authorize="hasAnyAuthority('ADMIN', 'DOCTOR')"
+       th:href="@{/web/visits}">Visits</a>
+    <a sec:authorize="hasAnyAuthority('ADMIN', 'DOCTOR')"
+       th:href="@{/web/reports}">Reports</a>
+    <a sec:authorize="hasAuthority('PATIENT')"
+       th:href="@{/web/patient/my-visits}">My visits</a>
 </div>
 
 <div class="container">
     <div class="card">
         <h1>Patients</h1>
+
+        <form th:action="@{/web/patients/by-diagnosis}" method="get" class="filter-form">
+            <select name="diagnosisId">
+                <option th:each="diagnosis : ${diagnoses}"
+                        th:value="${diagnosis.id}"
+                        th:text="${diagnosis.name}">
+                </option>
+            </select>
+            <br>
+            <button class="btn" type="submit">Filter by diagnosis</button>
+        </form>
+        <br><br>
+
+        <form th:action="@{/web/patients/by-general-practitioner}" method="get" class="filter-form">
+            <select name="doctorId">
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.userId}"
+                        th:text="${doctor.name}">
+                </option>
+            </select>
+            <br>
+            <button class="btn" type="submit">Filter by GP</button>
+        </form>
+        <br>
 
         <table>
             <thead>
@@ -29,7 +60,7 @@
                 <th>EGN</th>
                 <th>Health Insurance</th>
                 <th>General Practitioner</th>
-                <th>Actions</th>
+                <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -40,7 +71,7 @@
                 <td th:text="${patient.healthInsurancePaid}"></td>
                 <td th:text="${patient.generalPractitioner != null ? patient.generalPractitioner.name : 'No GP'}"></td>
 
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn"
                        th:href="@{/web/patients/edit/{id}(id=${patient.userId})}">
                         Edit

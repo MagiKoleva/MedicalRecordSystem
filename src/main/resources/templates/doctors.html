@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Doctors</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -21,6 +22,10 @@
     <div class="card">
         <h1>Doctors</h1>
 
+<!--        <a sec:authorize="hasAuthority('ADMIN')" class="btn" th:href="@{/web/doctors/create}">-->
+<!--            Add doctor</a>-->
+<!--        <br><br>-->
+
         <table>
             <thead>
             <tr>
@@ -29,7 +34,7 @@
                 <th>Name</th>
                 <th>General Practitioner</th>
                 <th>Specialties</th>
-                <th>Actions</th>
+                <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -45,7 +50,7 @@
         </span>
                 </td>
 
-                <td>
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn"
                        th:href="@{/web/doctors/edit/{id}(id=${doctor.userId})}">
                         Edit

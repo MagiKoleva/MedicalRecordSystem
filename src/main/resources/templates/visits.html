@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Visits</title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
@@ -21,6 +22,26 @@
     <div class="card">
         <h1>Visits</h1>
 
+        <a sec:authorize="hasAuthority('ADMIN')" class="btn" th:href="@{/web/visits/create}">
+            Add visit</a>
+        <br><br>
+
+        <form th:action="@{/web/visits/filter}" method="get" class="filter-form">
+            <select name="doctorId">
+                <option value="">All doctors</option>
+                <option th:each="doctor : ${doctors}"
+                        th:value="${doctor.userId}"
+                        th:text="${doctor.name}">
+                </option>
+            </select>
+
+            <input type="date" name="startDate">
+            <input type="date" name="endDate">
+
+            <button class="btn" type="submit">Filter</button>
+        </form>
+        <br><br>
+
         <table>
             <thead>
             <tr>
@@ -31,7 +52,9 @@
                 <th>Diagnosis</th>
                 <th>Price</th>
                 <th>Paid by</th>
-                <th>Actions</th>
+                <th>Treatment</th>
+                <th>Sick Leave</th>
+                <th sec:authorize="hasAuthority('ADMIN')">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -45,6 +68,26 @@
                 <td th:text="${visit.paidBy}"></td>
 
                 <td>
+                    <span th:if="${visit.treatment != null}">
+                        <strong th:text="${visit.treatment.prescribedMedication}"></strong>
+                        <br>
+                        <small th:text="${visit.treatment.description}"></small>
+                    </span>
+                    <span th:if="${visit.treatment == null}">No treatment</span>
+                </td>
+
+                <td>
+                    <span th:if="${visit.sickLeave != null}">
+                        From
+                        <span th:text="${visit.sickLeave.fromDate}"></span>
+                        <br>
+                        Days:
+                        <span th:text="${visit.sickLeave.days}"></span>
+                    </span>
+                    <span th:if="${visit.sickLeave == null}">No sick leave</span>
+                </td>
+
+                <td sec:authorize="hasAuthority('ADMIN')">
                     <a class="btn"
                        th:href="@{/web/visits/edit/{id}(id=${visit.id})}">
                         Edit

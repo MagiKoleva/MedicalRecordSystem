@@ -5,15 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DoctorPaymentSumDto {
+public class GeneralPractitionerPatientCountDto {
 
-    long doctorId;
-    String doctorName;
-    BigDecimal total;
+    private long doctorId;
+    private String doctorName;
+    private long count;
 }

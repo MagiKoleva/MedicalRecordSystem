@@ -9,6 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/web/visits")
@@ -22,6 +25,7 @@ public class VisitViewController {
     @GetMapping
     public String getVisits(Model model) {
         model.addAttribute("visits", visitService.getAllVisits());
+        model.addAttribute("doctors", doctorService.getAllDoctors());
         return "visits";
     }
 
@@ -82,5 +86,30 @@ public class VisitViewController {
     public String deleteVisit(@PathVariable long id) {
         visitService.deleteVisit(id);
         return "redirect:/web/visits";
+    }
+
+    @GetMapping("/filter")
+    public String filterVisits(
+            @RequestParam(required = false) Long doctorId,
+            @RequestParam(required = false) LocalDate startDate,
+            @RequestParam(required = false) LocalDate endDate,
+            Model model
+    ) {
+        List<Visit> visits;
+
+        if (doctorId != null && startDate != null && endDate != null) {
+            visits = visitService.getVisitsByDoctorAndPeriod(doctorId, startDate, endDate);
+        } else if (startDate != null && endDate != null) {
+            visits = visitService.getVisitsByPeriod(startDate, endDate);
+        } else if (doctorId != null) {
+            visits = visitService.getVisitsByDoctorId(doctorId);
+        } else {
+            visits = visitService.getAllVisits();
+        }
+
+        model.addAttribute("visits", visits);
+        model.addAttribute("doctors", doctorService.getAllDoctors());
+
+        return "visits";
     }
 }

@@ -31,20 +31,20 @@ public class DoctorViewController {
         return "doctor-form";
     }
 
-    @PostMapping("/create")
-    public String createDoctor(
-            @Valid @ModelAttribute("doctor") Doctor doctor,
-            BindingResult bindingResult,
-            Model model
-    ) {
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("specialties", specialtyService.getAllSpecialties());
-            return "doctor-form";
-        }
-
-        doctorService.createDoctor(doctor);
-        return "redirect:/web/doctors";
-    }
+//    @PostMapping("/create")
+//    public String createDoctor(
+//            @Valid @ModelAttribute("doctor") Doctor doctor,
+//            BindingResult bindingResult,
+//            Model model
+//    ) {
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("specialties", specialtyService.getAllSpecialties());
+//            return "doctor-form";
+//        }
+//
+//        doctorService.createDoctor(doctor);
+//        return "redirect:/web/doctors";
+//    }
 
     @GetMapping("/edit/{id}")
     public String showEditDoctorForm(@PathVariable long id, Model model) {

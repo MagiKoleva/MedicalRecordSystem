@@ -75,6 +75,24 @@
     </div>
 
     <div class="card">
+        <h2>Patients by general practitioner</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Doctor</th>
+                <th>Patients count</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${patientsByGp}">
+                <td th:text="${item.doctorName}"></td>
+                <td th:text="${item.count}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
         <h2>Month with most sick leaves</h2>
         <p th:if="${monthWithMostSickLeaves != null}">
             Month:

@@ -2,6 +2,7 @@ package com.project.medical_record_system.service;
 
 import com.project.medical_record_system.data.entity.Visit;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface VisitService {
@@ -14,4 +15,6 @@ public interface VisitService {
 
     List<Visit> getVisitsByDoctorId(long id);
     List<Visit> getVisitsByPatientId(Long id);
+    List<Visit> getVisitsByPeriod(LocalDate startDate, LocalDate endDate);
+    List<Visit> getVisitsByDoctorAndPeriod(Long doctorId, LocalDate startDate, LocalDate endDate);
 }

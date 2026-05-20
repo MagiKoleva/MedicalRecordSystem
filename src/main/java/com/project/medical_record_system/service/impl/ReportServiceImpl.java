@@ -94,4 +94,9 @@ public class ReportServiceImpl implements ReportService {
                 .findFirst()
                 .orElse(null);
     }
+
+    @Override
+    public List<GeneralPractitionerPatientCountDto> getPatientsCountByEachGeneralPractitioner() {
+        return patientRepository.countPatientsByGeneralPractitioner();
+    }
 }

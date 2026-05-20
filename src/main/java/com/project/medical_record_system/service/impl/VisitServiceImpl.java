@@ -10,6 +10,7 @@ import com.project.medical_record_system.service.VisitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -87,5 +88,15 @@ public class VisitServiceImpl implements VisitService {
     @Override
     public List<Visit> getVisitsByPatientId(Long id) {
         return visitRepository.findByPatientUserId(id);
+    }
+
+    @Override
+    public List<Visit> getVisitsByPeriod(LocalDate startDate, LocalDate endDate) {
+        return visitRepository.findByDateBetween(startDate, endDate);
+    }
+
+    @Override
+    public List<Visit> getVisitsByDoctorAndPeriod(Long doctorId, LocalDate startDate, LocalDate endDate) {
+        return visitRepository.findByDoctorUserIdAndDateBetween(doctorId, startDate, endDate);
     }
 }

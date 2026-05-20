@@ -22,4 +22,5 @@ public interface ReportService {
     List<Visit> getVisitsByDoctorAndPeriod(long doctorId, LocalDate start, LocalDate end);
     MonthSickLeaveCountDto getMonthWithMostSickLeaves();
     DoctorSickLeaveCountDto getDoctorWithMostSickLeaves();
+    List<GeneralPractitionerPatientCountDto> getPatientsCountByEachGeneralPractitioner();
 }

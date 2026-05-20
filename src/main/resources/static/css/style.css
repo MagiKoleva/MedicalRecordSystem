@@ -12,18 +12,18 @@
 /*    font-family: 'Roboto', sans-serif;*/
 /*}*/
 
-.navbar {
-    background: white;
-    padding: 18px 40px;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
-}
+/*.navbar {*/
+/*    background: white;*/
+/*    padding: 18px 40px;*/
+/*    box-shadow: 0 4px 18px rgba(0,0,0,0.06);*/
+/*}*/
 
-.navbar a {
-    margin-right: 20px;
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 600;
-}
+/*.navbar a {*/
+/*    margin-right: 20px;*/
+/*    color: var(--text);*/
+/*    text-decoration: none;*/
+/*    font-weight: 600;*/
+/*}*/
 
 .container {
     width: 90%;
@@ -184,6 +184,13 @@ input, select, textarea {
     text-decoration: none;
 }
 
+.auth-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    margin-top: 12px;
+}
+
 .error-message {
     background: #ffecec;
     color: #b42318;
@@ -207,4 +214,76 @@ input, select, textarea {
     font-weight: 600;
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+}
+
+.dashboard-card {
+    background: white;
+    padding: 28px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: #24312d;
+    font-weight: 700;
+    box-shadow: 0 10px 28px rgba(0,0,0,0.06);
+    transition: 0.2s;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-3px);
+    color: #38b996;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    background: white;
+    padding: 18px 56px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+}
+
+.navbar a {
+    color: #24312d;
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.logout-form {
+    margin-left: auto;
+}
+
+.logout-btn {
+    background: white;
+    color: #38b996;
+    border: 2px solid #1f4d3d;
+    padding: 9px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+}
+
+.logout-btn:hover {
+    background: #e8f8f1;
+}
+
+.register-card {
+    width: 520px;
+}
+
+.register-card hr {
+    border: none;
+    border-top: 1px solid #e6eeee;
+    margin: 24px 0;
+}
+
+.register-card h3 {
+    margin-bottom: 16px;
+    color: #38b996;
 }

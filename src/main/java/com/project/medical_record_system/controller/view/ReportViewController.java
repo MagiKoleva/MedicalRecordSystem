@@ -20,6 +20,7 @@ public class ReportViewController {
         model.addAttribute("totalPaidByPatients", reportService.getTotalPaidByPatients());
         model.addAttribute("paidByDoctor", reportService.getPatientPaidVisitsSumByDoctor());
         model.addAttribute("visitsByDoctor", reportService.getVisitsCountByDoctor());
+        model.addAttribute("patientsByGp", reportService.getPatientsCountByEachGeneralPractitioner());
         model.addAttribute("monthWithMostSickLeaves", reportService.getMonthWithMostSickLeaves());
         model.addAttribute("doctorWithMostSickLeaves", reportService.getDoctorWithMostSickLeaves());
 

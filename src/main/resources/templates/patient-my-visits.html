@@ -12,8 +12,9 @@
     <a th:href="@{/web/patient/my-visits}">My visits</a>
     <a th:href="@{/web/doctors}">Doctors</a>
 
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <button class="nav-logout" type="submit">Logout</button>
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button class="logout-btn" type="submit">Log out</button>
     </form>
 </div>
 
@@ -29,6 +30,8 @@
                 <th>Diagnosis</th>
                 <th>Price</th>
                 <th>Paid By</th>
+                <th>Treatment</th>
+                <th>Sick Leave</th>
             </tr>
             </thead>
 
@@ -39,6 +42,26 @@
                 <td th:text="${visit.diagnosis != null ? visit.diagnosis.name : 'No diagnosis'}"></td>
                 <td th:text="${visit.price}"></td>
                 <td th:text="${visit.paidBy}"></td>
+
+                <td>
+                    <span th:if="${visit.treatment != null}">
+                        <strong th:text="${visit.treatment.prescribedMedication}"></strong>
+                        <br>
+                        <small th:text="${visit.treatment.description}"></small>
+                    </span>
+                    <span th:if="${visit.treatment == null}">No treatment</span>
+                </td>
+
+                <td>
+                    <span th:if="${visit.sickLeave != null}">
+                        From
+                        <span th:text="${visit.sickLeave.fromDate}"></span>
+                        <br>
+                        Days:
+                        <span th:text="${visit.sickLeave.days}"></span>
+                    </span>
+                    <span th:if="${visit.sickLeave == null}">No sick leave</span>
+                </td>
             </tr>
             </tbody>
         </table>

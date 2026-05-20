@@ -9,19 +9,35 @@
 
 <div class="navbar">
     <a th:href="@{/web/admin/dashboard}">Dashboard</a>
+    <a th:href="@{/web/users}">Users</a>
     <a th:href="@{/web/doctors}">Doctors</a>
     <a th:href="@{/web/patients}">Patients</a>
+    <a th:href="@{/web/specialties}">Specialties</a>
+    <a th:href="@{/web/diagnoses}">Diagnoses</a>
     <a th:href="@{/web/visits}">Visits</a>
+    <a th:href="@{/web/treatments}">Treatments</a>
+    <a th:href="@{/web/sick-leaves}">Sick Leaves</a>
     <a th:href="@{/web/reports}">Reports</a>
-    <form th:action="@{/logout}" method="post" style="display:inline;">
-        <button class="nav-logout" type="submit">Logout</button>
+
+    <form th:action="@{/logout}" method="post" class="logout-form">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        <button class="logout-btn" type="submit">Log out</button>
     </form>
 </div>
 
 <div class="container">
-    <div class="card">
-        <h1>Admin Dashboard</h1>
-        <p>You have full access to the system.</p>
+    <h1>Admin Dashboard</h1>
+
+    <div class="dashboard-grid">
+        <a class="dashboard-card" th:href="@{/web/users}">Users</a>
+        <a class="dashboard-card" th:href="@{/web/doctors}">Doctors</a>
+        <a class="dashboard-card" th:href="@{/web/patients}">Patients</a>
+        <a class="dashboard-card" th:href="@{/web/specialties}">Specialties</a>
+        <a class="dashboard-card" th:href="@{/web/diagnoses}">Diagnoses</a>
+        <a class="dashboard-card" th:href="@{/web/visits}">Visits</a>
+        <a class="dashboard-card" th:href="@{/web/treatments}">Treatments</a>
+        <a class="dashboard-card" th:href="@{/web/sick-leaves}">Sick Leaves</a>
+        <a class="dashboard-card" th:href="@{/web/reports}">Reports</a>
     </div>
 </div>
 

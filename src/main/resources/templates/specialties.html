@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Specialties</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+<div class="navbar">
+    <a th:href="@{/web/admin/dashboard}">Dashboard</a>
+    <a th:href="@{/web/specialties}">Specialties</a>
+</div>
+
+<div class="container">
+    <div class="card">
+        <h1>Specialties</h1>
+
+        <a class="btn" th:href="@{/web/specialties/create}">Add specialty</a>
+        <br><br>
+
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr th:each="specialty : ${specialties}">
+                <td th:text="${specialty.id}"></td>
+                <td th:text="${specialty.name}"></td>
+                <td th:text="${specialty.description}"></td>
+                <td>
+                    <a class="btn" th:href="@{/web/specialties/edit/{id}(id=${specialty.id})}">Edit</a>
+                    <a class="btn btn-secondary" th:href="@{/web/specialties/delete/{id}(id=${specialty.id})}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

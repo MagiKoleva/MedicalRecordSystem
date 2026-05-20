@@ -59,5 +59,5 @@ public class Visit extends BaseEntity {
     //@JsonManagedReference
     @OneToOne(mappedBy = "visit")
     @JsonIgnore
-    private SickLeave  sickleave;
+    private SickLeave  sickLeave;
 }
